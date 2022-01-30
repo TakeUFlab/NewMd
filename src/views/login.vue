@@ -1,13 +1,16 @@
 <template>
     <div class="loginForm">
         <h1>LOGIN</h1>
-        <div>
+        <div class="error" v-show="showError">
+            <span>密碼或帳號不正確</span>
+        </div>
+        <div class="input">
             <p>帳號</p>
-            <input type="text" placeholder="身分證字號" v-model="input.account" />
+            <input type="text" placeholder="身分證字號" v-model="account" />
         </div>
         <div>
             <p>密碼</p>
-            <input type="password" v-model="input.password" />
+            <input type="password" v-model="password" />
         </div>
         <button @click="login">LOGIN</button>
     </div>
@@ -15,23 +18,25 @@
 
 <script setup lang="ts">
 import Cookies from 'js-cookie';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import store from '../store/index';
 
+const router = useRouter();
 let pass: boolean = true;
+const showError = ref(false);
+const account = ref('');
+const password = ref('');
 
-let input: {
-    account: string,
-    password: string
-} = {
-    account: '',
-    password: ''
-}
 
 function login() {
-    if(pass) {
-        Cookies.set('userId', input.account);
-        Cookies.set('userPsd', input.password);
-    }else {
-
+    if (pass) {
+        Cookies.set('userId', account.value);
+        Cookies.set('userPsd', password.value);
+        store.state.isLogin = true;
+        router.push('/~');
+    } else {
+        showError.value = true;
     }
 }
 </script>
@@ -59,14 +64,14 @@ input {
     border-radius: 2px;
     padding: 2px 5px;
     transition: 0.3s;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
 }
 
 input:focus {
     border: #0091ff solid 1px;
 }
 
-div {
+.input {
     margin-top: 5px;
     margin-bottom: 15px;
 }
@@ -81,6 +86,7 @@ h1 {
 }
 
 button {
+    margin-top: 15px;
     border: none;
     border-radius: 5px;
     background-color: #0091ff;
@@ -88,5 +94,15 @@ button {
     color: #f7f7f7;
     font-size: 1rem;
     cursor: pointer;
+}
+.error {
+    background-color: #f78e8e;
+    color: #ff0000;
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 8px 35px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 </style>

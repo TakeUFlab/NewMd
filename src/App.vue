@@ -2,7 +2,8 @@
   <header>
     <div class="logo">New MD</div>
     <nav>
-      <router-link to="/login">Login</router-link>
+      <button @click="log()" v-if="store.state.isLogin"> Logout </button>
+      <button @click="log()" v-else> Login </button>
     </nav>
   </header>
   <router-view />
@@ -11,13 +12,27 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
+import store from './store/index'
 const router = useRouter();
 
 let userId = Cookies.get('userId');
 if (userId == undefined) {
+  store.state.isLogin = false;
   router.push('/');
 } else {
-  
+  store.state.isLogin = true;
+  router.push('/~');
+}
+
+function log() {
+  if(store.state.isLogin == false) {
+    router.push('/login');
+  }else {
+    store.state.isLogin = false;
+    Cookies.remove('userId');
+    Cookies.remove('userPsd');
+    router.push('/');
+  }
 }
 </script>
 
@@ -31,6 +46,10 @@ if (userId == undefined) {
 }
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   background-color: #ffffff;
   border-bottom: #cccccc solid 0.5px;
   padding: 10px 25px;
@@ -46,7 +65,7 @@ header > .logo {
   letter-spacing: 1.5px;
 }
 
-header > nav > a {
+header > nav > button {
   background-color: #0091ff;
   padding: 2px 10px;
   border: none;
@@ -60,6 +79,7 @@ header > nav > a {
 }
 
 body {
+  position: relative;
   background-color: #f8f9fd;
 }
 </style>
