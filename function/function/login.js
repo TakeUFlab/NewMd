@@ -1,15 +1,3 @@
-/*
-login("Q124751571", "wes20060929").then(data => {
-    if (!data.error) {
-        console.log(data);
-    }
-    else {
-        console.error(data.error);
-    };
-});
-*/
-
-
 import fetch from 'node-fetch';
 
 export async function login(id, pwd) {
@@ -71,3 +59,15 @@ export async function login(id, pwd) {
     });
     return data;
 }
+
+/***** Test Code *******/
+/*** 
+login("Q124751571", "wes20060929").then(data => {
+    if (!data.error) {
+        console.log(data);
+    }
+    else {
+        console.error(data.error);
+    };
+});
+***/

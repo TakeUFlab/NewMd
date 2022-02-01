@@ -92,7 +92,7 @@ async function getTimetable(url: string) {
 
 function search() {
     if (classSymbol.value !== '' && showTable.value == true) {
-        getTimetable(`https://md-apps.herokuapp.com/API/${classSymbol.value}/${selected.value}/1`)
+        getTimetable(`https://md-apps.herokuapp.com/API/${classSymbol.value}/${selected.value}/5`)
     }else {
         alert('wait a minute');
         return;
@@ -236,6 +236,12 @@ button {
 @media screen and (max-width: 490px) {
     .timetable {
         padding: 10px 10px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .timetable {
+        width: 100vw;
+        margin-left: 0;
     }
 }
 

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.25.0",
+    "boxicons": "^2.1.1",
     "cheerio": "^1.0.0-rc.10",
     "iconv-lite": "^0.6.3",
     "js-cookie": "^3.0.1",

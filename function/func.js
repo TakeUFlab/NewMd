@@ -1,1 +1,1 @@
-export {login} from "./function/login.js";
+export { login } from "./function/login.js";

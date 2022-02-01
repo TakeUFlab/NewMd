@@ -5,7 +5,7 @@
             <h2>一個拯救明道人的雲端平台</h2>
             <div class="links">
                 <router-link to="/~/timetable">課表查詢</router-link>
-                <router-link to="/login">及時成績</router-link>
+                <router-link to="/login">即時資訊中心</router-link>
             </div>
         </div>
         <img src="../assets/PersonalSettings.svg" alt="首頁" />
@@ -52,10 +52,10 @@ img {
     height: auto;
 }
 
-.text>.links {
+.text > .links {
     margin-top: 12px;
 }
-.text>.links>a {
+.text > .links > a {
     margin-right: 10px;
     background-color: #0091ff;
     padding: 2px 10px 5px 10px;
@@ -67,10 +67,10 @@ img {
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
-.text>.links>a:hover {
+.text > .links > a:hover {
     background-color: transparent;
     border: 1px solid #0091ff;
     color: #0091ff;
@@ -81,12 +81,19 @@ img {
         padding: 0;
         flex-direction: column;
         justify-content: start;
-        padding-top: 20%;
+        padding-top: 30%;
     }
 
     .text {
         margin-right: 0;
         margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .home {
+        width: 100vw;
+        margin-left: 0;
     }
 }
 
@@ -96,6 +103,9 @@ img {
     }
     h2 {
         font-size: 1.1rem;
+    }
+    .text > .links > a {
+        padding: 2px 7px 5px 7px;
     }
 }
 @media screen and (max-width: 350px) {

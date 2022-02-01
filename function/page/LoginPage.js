@@ -1,6 +1,4 @@
-import fetch from 'node-fetch';
 import axios from 'axios';
-import iconv from 'iconv-lite';
 import cheerio from 'cheerio';
 
 export async function loginpage() {

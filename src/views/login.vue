@@ -2,7 +2,7 @@
     <div class="loginForm">
         <h1>LOGIN</h1>
         <div class="error" v-show="showError">
-            <span>密碼或帳號不正確</span>
+            <span>{{ errorMsg }}</span>
         </div>
         <div class="input">
             <p>帳號</p>
@@ -12,7 +12,7 @@
             <p>密碼</p>
             <input type="password" v-model="password" />
         </div>
-        <button @click="login">LOGIN</button>
+        <button @click="login" v-html="loginMsg"></button>
     </div>
 </template>
 
@@ -20,24 +20,43 @@
 import Cookies from 'js-cookie';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { Login } from '../function/Login';
 import store from '../store/index';
 
 const router = useRouter();
-let pass: boolean = true;
 const showError = ref(false);
+const errorMsg = ref('');
 const account = ref('');
 const password = ref('');
-
+const loginMsg = ref('LOGIN');
 
 function login() {
-    if (pass) {
-        Cookies.set('userId', account.value);
-        Cookies.set('userPsd', password.value);
-        store.state.isLogin = true;
-        router.push('/~');
-    } else {
-        showError.value = true;
-    }
+    showError.value = false;
+    loginMsg.value = "<box-icon name='loader-circle' flip='vertical' animation='spin' color='#ffffff' ></box-icon>";
+    Login(account.value, password.value)
+        .then(data => {
+            if (!data.error) {
+                const status = data.status;
+                if (status == 0) {
+                    Cookies.set('userId', account.value);
+                    Cookies.set('userPsd', password.value);
+                    Cookies.set('CookieCode', data.cookie);
+                    store.state.isLogin = true;
+                    router.push('/~');
+                } else if (status == 1) {
+                    showError.value = true;
+                    errorMsg.value = '帳號不正確';
+                    loginMsg.value = 'LOGIN';
+                } else {
+                    showError.value = true;
+                    errorMsg.value = '密碼不正確';
+                    loginMsg.value = 'LOGIN';
+                }
+            }
+        }).catch(_ => {
+            alert('網路錯誤，確認後將重新載入');
+            router.push('/');
+        })
 }
 </script>
 
@@ -54,6 +73,11 @@ function login() {
     width: 300px;
     max-width: 80vw;
     padding: 20px 10px;
+}
+
+box-icon {
+    position: relative;
+    top: 15px;
 }
 
 input {
@@ -90,17 +114,22 @@ button {
     border: none;
     border-radius: 5px;
     background-color: #0091ff;
-    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 77.38px;
+    height: 30px;
     color: #f7f7f7;
     font-size: 1rem;
     cursor: pointer;
 }
 .error {
-    background-color: #f78e8e;
+    background-color: #fdaaaa;
     color: #ff0000;
-    font-size: 1rem;
+    border: 1px solid #ff0000;
+    font-size: 0.9rem;
     font-weight: 300;
-    padding: 8px 35px;
+    padding: 4px 50px;
     border-radius: 5px;
     margin-top: 10px;
     margin-bottom: 15px;
