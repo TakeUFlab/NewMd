@@ -1,5 +1,5 @@
 # Function
-[Function guide](https://github.com/TakeUFlab/NewMd/blob/main/function/guide.md#loginpage)
+[Function guide](https://github.com/TakeUFlab/NewMd/blob/main/function/guide.md)
 
 # Vue 3 + Typescript + Vite
 
