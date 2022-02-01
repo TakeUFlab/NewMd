@@ -10,9 +10,9 @@
                     <p>即時課表</p>
                 </li>
                 <li>
-                    <a href="#">
+                    <router-link to="/~/Infos">
                         <box-icon name="info-circle" color="#ffffff"></box-icon>
-                    </a>
+                    </router-link>
                     <p>即時資訊中心</p>
                 </li>
             </ul>
@@ -23,9 +23,27 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import Cookies from 'js-cookie';
+import { getIndex } from '../../function/getIndex';
+import { useStore } from 'vuex';
 import 'boxicons';
+const store = useStore();
+const cookie = Cookies.get('CookieCode')
+const name = ref('');
+getIndex(cookie)
+    .then(data => {
+        store.state.indexData = data;
+        if(Cookies.get('name') == undefined) {
+            Cookies.set('name', data[1].text);
+            name.value = data[1].text;
+        }else {
+            name.value = Cookies.get('name');
+        }
+    }).catch(data => {
+        console.log('get index data error', data);
+    });
 
-const name = ref('葉柏辰');
+
 </script>
 
 <style scoped>
@@ -116,7 +134,7 @@ box-icon {
 }
 
 @media screen and (max-width: 480px) {
-    .options{
+    .options {
         background-color: transparent;
     }
     .options > ul > li > a {

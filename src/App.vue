@@ -31,6 +31,8 @@ function log() {
     store.state.isLogin = false;
     Cookies.remove('userId');
     Cookies.remove('userPsd');
+    Cookies.remove('CookieCode');
+    Cookies.remove('name');
     router.push('/');
   }
 }

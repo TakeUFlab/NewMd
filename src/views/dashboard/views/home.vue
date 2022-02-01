@@ -5,7 +5,7 @@
             <h2>一個拯救明道人的雲端平台</h2>
             <div class="links">
                 <router-link to="/~/timetable">課表查詢</router-link>
-                <router-link to="/login">即時資訊中心</router-link>
+                <router-link to="/~/Infos">即時資訊中心</router-link>
             </div>
         </div>
         <img src="../assets/PersonalSettings.svg" alt="首頁" />

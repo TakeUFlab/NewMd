@@ -4,6 +4,7 @@ import dashHome from '../views/dashboard/views/home.vue'
 import welcome from '../views/welcome.vue'
 import dashboard from '../views/dashboard/dashboard.vue'
 import timetable from '../views/dashboard/views/timetable.vue'
+import information from '../views/dashboard/views/information.vue';
 
 const Router = createRouter({
     history: createWebHistory(),
@@ -32,6 +33,11 @@ const Router = createRouter({
                     path: 'timetable',
                     name: 'Timetable',
                     component: timetable
+                },
+                {
+                    path: 'Infos',
+                    name: 'Information',
+                    component: information
                 }
             ]
         }
