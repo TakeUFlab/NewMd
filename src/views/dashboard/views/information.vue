@@ -5,7 +5,6 @@
             <div class="details">
                 <h1>{{ userData.name }}</h1>
                 <div class="detail">{{ userData.number }}</div>
-                <div class="TODO">暫無代辦事項</div>
             </div>
         </div>
     </div>
@@ -66,10 +65,6 @@ const userData = {
     margin-left: 3px;
     font-size: 1rem;
     font-weight: 300;
-}
-.TODO {
-    color: #7e7e7e;
-    margin-left: 3px;
 }
 
 @media screen and (max-width: 480px) {

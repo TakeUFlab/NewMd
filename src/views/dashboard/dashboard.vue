@@ -1,6 +1,10 @@
 <template>
     <div class="dashboard">
+        <input type="checkbox" id="active" style="display: none;">
         <div class="options">
+            <label for="active" class="menu">
+                <box-icon name="menu" color="#ffffff"></box-icon>
+            </label>
             <div class="name">{{ name.slice(0, 1) }}</div>
             <ul>
                 <li>
@@ -22,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import Cookies from 'js-cookie';
 import { getIndex } from '../../function/getIndex';
 import { useStore } from 'vuex';
@@ -33,16 +37,15 @@ const name = ref('');
 getIndex(cookie)
     .then(data => {
         store.state.indexData = data;
-        if(Cookies.get('name') == undefined) {
+        if (Cookies.get('name') == undefined) {
             Cookies.set('name', data[1].text);
             name.value = data[1].text;
-        }else {
+        } else {
             name.value = Cookies.get('name');
         }
     }).catch(data => {
         console.log('get index data error', data);
     });
-
 
 </script>
 
@@ -58,12 +61,12 @@ getIndex(cookie)
     position: fixed;
     top: 56px;
     background-color: #189bff;
-    width: 50px;
     height: calc(100vh - 56px);
     padding-top: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 50px;
 }
 .options > .name {
     color: #fff;
@@ -72,14 +75,6 @@ getIndex(cookie)
     margin-bottom: 10px;
     background-color: #0077ff;
     padding: 5px 9px;
-    border-radius: 50%;
-    cursor: default;
-}
-.options > label {
-    font-weight: 500;
-    margin-bottom: 10px;
-    background-color: #0077ff;
-    padding: 6px 5px 0px 5px;
     border-radius: 50%;
     cursor: default;
 }
@@ -112,20 +107,35 @@ getIndex(cookie)
 }
 
 .options > ul > li > p {
-    margin-top: -30px;
     color: #fff;
     margin-left: 10px;
     font-size: 1rem;
     background-color: #189bff;
     padding: 5px 10px;
     border-radius: 5px;
-    opacity: 0;
     transition: 0.3s;
+    opacity: 0;
 }
 
 .options > ul > li > a:hover + p {
     margin-top: -10px;
     opacity: 1;
+}
+.menu {
+    position: fixed;
+    top: 62px;
+    left: 7px;
+    background-color: #189bff;
+    padding: 3px 4px 0px 4px;
+    border-radius: 4px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: none;
+}
+
+.menu > box-icon {
+    margin-top: 1px;
 }
 
 box-icon {
@@ -135,10 +145,15 @@ box-icon {
 
 @media screen and (max-width: 480px) {
     .options {
-        background-color: transparent;
+        padding-top: 50px;
+        left: -100%;
+        transition: .3s ease-in-out;
     }
-    .options > ul > li > a {
-        background-color: #0077ff;
+    .menu {
+        display: inline;
+    }
+    #active:checked~.options {
+        left: 0px;
     }
 }
 </style>
