@@ -80,7 +80,7 @@ async function getTimetable(url: string) {
             }
             timetable.value = data;
             showTable.value = true;
-        }else {
+        } else {
             console.error(data.error);
         }
 
@@ -93,7 +93,7 @@ async function getTimetable(url: string) {
 function search() {
     if (classSymbol.value !== '' && showTable.value == true) {
         getTimetable(`https://md-apps.herokuapp.com/API/${classSymbol.value}/${selected.value}/5`)
-    }else {
+    } else {
         alert('wait a minute');
         return;
     }
@@ -110,6 +110,8 @@ getTimetable('https://md-apps.herokuapp.com/API/Y313');
     margin-top: 56px;
     display: flex;
     flex-direction: column;
+    margin-left: 200px;
+    transition: .3s ease-in-out;
     align-items: center;
 }
 
@@ -175,7 +177,7 @@ button {
 
 .table {
     width: 778px;
-    max-width: 80vw;
+    max-width: 90vw;
     background-color: #ffffff;
     border: 1px solid #cccccc;
     border-radius: 5px;
@@ -235,13 +237,14 @@ button {
 
 @media screen and (max-width: 490px) {
     .timetable {
-        padding: 10px 10px;
+        padding: 5px 5px;
     }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1025px) {
     .timetable {
         width: 100vw;
-        margin-left: 0;
+        margin-left: 0px;
+        padding: 0;
     }
 }
 

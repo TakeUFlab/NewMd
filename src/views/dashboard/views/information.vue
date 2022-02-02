@@ -25,26 +25,26 @@ const userData = {
 
 <style scoped>
 .information {
-    margin-left: 50px;
-    width: calc(100vw - 50px);
+    width: calc(100vw - 200px);
     padding: 10px 15px;
-    margin-top: 56px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    transition: .3s ease-in-out;
+    margin-left: 200px;
 }
 .profile {
-    width: 300px;
     max-width: 100%;
+    height: 170px;
     background-color: #fff;
-    border: 1px solid #cccccc;
     border-radius: 5px;
-    padding: 10px;
+    padding: 20px;
     display: flex;
 }
 .profile > img {
-    width: 100px;
-    height: auto;
+    width: 90px;
+    height: 130px;
+    object-fit: cover;
     border: 1px solid #cccccc;
     border-radius: 5px;
     margin-right: 25px;
@@ -67,10 +67,10 @@ const userData = {
     font-weight: 300;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1025px) {
     .information {
         width: 100vw;
-        margin-left: 0;
+        margin-left: 50px;
     }
 }
 </style>

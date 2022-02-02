@@ -82,6 +82,6 @@ header > nav > button {
 
 body {
   position: relative;
-  background-color: #f8f9fd;
+  background-color: #f1f1f1;
 }
 </style>

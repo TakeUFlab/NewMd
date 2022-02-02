@@ -15,15 +15,15 @@
 <style scoped>
 .home {
     padding: 25px 10px;
-    margin-left: 49px;
     display: flex;
     background-color: #fff;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 56px);
-    width: calc(100vw - 50px);
-    margin-top: 56px;
+    width: calc(100vw - 150px);
+    margin-left: 200px;
+    transition: .3s ease-in-out;
 }
 
 .text {
@@ -76,12 +76,11 @@ img {
     color: #0091ff;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1170px) {
     .home {
         padding: 0;
         flex-direction: column;
-        justify-content: start;
-        padding-top: 30%;
+        justify-content: center;
     }
 
     .text {
@@ -90,10 +89,10 @@ img {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1025px) {
     .home {
         width: 100vw;
-        margin-left: 0;
+        margin-left: 0px;
     }
 }
 
