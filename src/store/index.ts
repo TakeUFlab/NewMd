@@ -1,17 +1,10 @@
-import { createStore } from 'vuex'
+import { createStore, Store as VuexStore, CommitOptions, DispatchOptions } from 'vuex';
+import { State, state } from './state';
+import { Mutations, mutations } from './mutations';
+import { Actions, actions } from './actions';
 
 export default createStore({
-  state: {
-    isLogin: false,
-    indexData: {}
-  },
-  mutations: {
-
-  },
-  actions: {
-
-  },
-  getters: {
-
-  }
-})
+  state,
+  mutations,
+  actions,
+});

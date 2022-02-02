@@ -6,11 +6,11 @@
         </div>
         <div class="input">
             <p>帳號</p>
-            <input type="text" placeholder="身分證字號" v-model="account" />
+            <input type="text" placeholder="身分證字號" v-model="loginData.userID" />
         </div>
         <div>
             <p>密碼</p>
-            <input type="password" v-model="password" />
+            <input type="password" v-model="loginData.userPsd" />
         </div>
         <button @click="login" v-html="loginMsg"></button>
     </div>
@@ -19,44 +19,48 @@
 <script setup lang="ts">
 import Cookies from 'js-cookie';
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-import { Login } from '../function/Login';
-import store from '../store/index';
+import { reactive, ref } from 'vue';
+import { useStore } from 'vuex';
 
 const router = useRouter();
+const store = useStore();
 const showError = ref(false);
 const errorMsg = ref('');
-const account = ref('');
-const password = ref('');
+const loginData = reactive({
+    userID: '',
+    userPsd: ''
+});
 const loginMsg = ref('LOGIN');
 
 function login() {
     showError.value = false;
     loginMsg.value = "<i class='bx bx-loader-circle bx-spin bx-rotate-180' style='color:#ffffff' ></i>";
-    Login(account.value, password.value)
-        .then(data => {
-            if (!data.error) {
-                const status = data.status;
+    store.dispatch('LOGIN', loginData)
+        .then(status => {
+            if (status != 3) {
                 if (status == 0) {
-                    Cookies.set('userId', account.value);
-                    Cookies.set('userPsd', password.value);
-                    Cookies.set('CookieCode', data.cookie);
-                    store.state.isLogin = true;
+                    Cookies.set('userId', loginData.userID);
+                    Cookies.set('userPsd', loginData.userPsd);
+                    Cookies.set('CookieCode', store.state.cookie);
                     router.push('/~');
                 } else if (status == 1) {
                     showError.value = true;
                     errorMsg.value = '帳號不正確';
                     loginMsg.value = 'LOGIN';
-                } else {
+                } else if (status == 2) {
                     showError.value = true;
                     errorMsg.value = '密碼不正確';
                     loginMsg.value = 'LOGIN';
+                } else {
+                    console.log(status);
                 }
+            } else {
+                console.error('欸不是錯了啦', status);
             }
-        }).catch(_ => {
-            alert('網路錯誤，確認後將重新載入');
-            router.push('/');
+        }).catch(err => {
+            console.error('欸不是又錯了啦', err);
         })
+
 }
 </script>
 

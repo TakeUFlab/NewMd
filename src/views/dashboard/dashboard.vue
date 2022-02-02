@@ -3,7 +3,7 @@
         <input type="checkbox" id="active" style="display: none;" />
         <div class="options">
             <label for="active" class="menu">
-                <i class='bx bx-menu bx-rotate-180' style='color:#ffffff' ></i>
+                <i class="bx bx-menu bx-rotate-180" style="color:#ffffff"></i>
             </label>
             <div class="name">
                 <div class="avatar">{{ name.slice(0, 1) }}</div>
@@ -12,13 +12,13 @@
             <ul>
                 <li>
                     <router-link to="/~/timetable">
-                        <i class='bx bx-calendar bx-rotate-180' style='color:#ffffff' ></i>
+                        <i class="bx bx-calendar bx-rotate-180" style="color:#ffffff"></i>
                         <p>即時課表</p>
                     </router-link>
                 </li>
                 <li>
                     <router-link to="/~/Infos">
-                        <i class='bx bx-info-circle bx-rotate-180' style='color:#ffffff' ></i>
+                        <i class="bx bx-info-circle bx-rotate-180" style="color:#ffffff"></i>
                         <p>即時資訊中心</p>
                     </router-link>
                 </li>
@@ -41,25 +41,36 @@ const account = {
     userID: Cookies.get('userId'),
     userPsd: Cookies.get('userPsd')
 }
-Login(account.userID, account.userPsd)
-    .then(data => {
-        cookie = data.cookie;
-        getIndex(cookie)
-            .then(data => {
-                store.state.indexData = data;
-                if (Cookies.get('name') == undefined) {
-                    Cookies.set('name', data[1].text);
-                    name.value = data[1].text;
-                } else {
-                    name.value = Cookies.get('name');
-                }
-            }).catch(data => {
-                console.log('get index data error', data);
-            });
-    });
-
-
-
+if (Cookies.get('name') != undefined) {
+    name.value = Cookies.get('name');
+    Login(account.userID, account.userPsd)
+        .then(data => {
+            cookie = data.cookie;
+            getIndex(cookie)
+                .then(data => {
+                    store.state.indexData = data;
+                }).catch(data => {
+                    console.log('get index data error', data);
+                });
+        });
+} else {
+    Login(account.userID, account.userPsd)
+        .then(data => {
+            cookie = data.cookie;
+            getIndex(cookie)
+                .then(data => {
+                    store.state.indexData = data;
+                    if (Cookies.get('name') == undefined) {
+                        Cookies.set('name', data[1].text);
+                        name.value = data[1].text;
+                    } else {
+                        name.value = Cookies.get('name');
+                    }
+                }).catch(data => {
+                    console.log('get index data error', data);
+                });
+        });
+}
 </script>
 
 <style>
@@ -105,7 +116,7 @@ a {
 .options > ul > li > a:hover {
     background-color: #f0eeee85;
 }
-.options > ul > li > a > i{
+.options > ul > li > a > i {
     margin-right: 20px;
 }
 .options > label {
@@ -146,7 +157,7 @@ a {
     font-weight: 700;
 }
 
-#active:checked ~  .options {
+#active:checked ~ .options {
     height: 60px;
     width: 50px;
     background-color: transparent;
