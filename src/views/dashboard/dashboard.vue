@@ -3,7 +3,7 @@
         <input type="checkbox" id="active" style="display: none;" />
         <div class="options">
             <label for="active" class="menu">
-                <box-icon name="menu" color="#ffffff"></box-icon>
+                <i class='bx bx-menu bx-rotate-180' style='color:#ffffff' ></i>
             </label>
             <div class="name">
                 <div class="avatar">{{ name.slice(0, 1) }}</div>
@@ -12,13 +12,13 @@
             <ul>
                 <li>
                     <router-link to="/~/timetable">
-                        <box-icon name="calendar" color="#ffffff"></box-icon>
+                        <i class='bx bx-calendar bx-rotate-180' style='color:#ffffff' ></i>
                         <p>即時課表</p>
                     </router-link>
                 </li>
                 <li>
                     <router-link to="/~/Infos">
-                        <box-icon name="info-circle" color="#ffffff"></box-icon>
+                        <i class='bx bx-info-circle bx-rotate-180' style='color:#ffffff' ></i>
                         <p>即時資訊中心</p>
                     </router-link>
                 </li>
@@ -34,7 +34,6 @@ import Cookies from 'js-cookie';
 import { getIndex } from '../../function/getIndex';
 import { useStore } from 'vuex';
 import { Login } from '../../function/Login';
-import 'boxicons';
 const store = useStore();
 const name = ref('');
 let cookie = '';
@@ -106,7 +105,7 @@ a {
 .options > ul > li > a:hover {
     background-color: #f0eeee85;
 }
-.options > ul > li > a > box-icon {
+.options > ul > li > a > i{
     margin-right: 20px;
 }
 .options > label {
@@ -172,9 +171,8 @@ a {
     width: 100vw;
 }
 
-box-icon {
-    width: 28px;
-    height: 28px;
+i.bx {
+    font-size: 28px;
 }
 
 @media screen and (max-width: 1025px) {
@@ -189,7 +187,7 @@ box-icon {
         padding: 8px;
         margin: 0 5px 0 6px;
     }
-    .options > ul > li > a > box-icon {
+    .options > ul > li > a > i {
         margin-right: 0;
     }
     .options > ul > li > a > p {

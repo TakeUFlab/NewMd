@@ -32,7 +32,7 @@ const loginMsg = ref('LOGIN');
 
 function login() {
     showError.value = false;
-    loginMsg.value = "<box-icon name='loader-circle' flip='vertical' animation='spin' color='#ffffff' ></box-icon>";
+    loginMsg.value = "<i class='bx bx-loader-circle bx-spin bx-rotate-180' style='color:#ffffff' ></i>";
     Login(account.value, password.value)
         .then(data => {
             if (!data.error) {
@@ -75,9 +75,8 @@ function login() {
     padding: 20px 10px;
 }
 
-box-icon {
-    position: relative;
-    top: 15px;
+i {
+    font-size: 24px;
 }
 
 input {
