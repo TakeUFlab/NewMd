@@ -29,6 +29,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import Cookies from 'js-cookie';
 
 const titles = reactive([
     '星期', '第一節', '第二節', '第三節', '第四節', '第五節', '第六節', '第七節', '第八節'
@@ -57,6 +58,11 @@ const selected = ref('1102');
 
 let showTable = ref(false);
 
+const userAccount = {
+    userID: Cookies.get('userId'),
+    userPsd: Cookies.get('userPsd')
+}
+
 let timetable = ref({});
 async function getTimetable(url: string) {
     try {
@@ -65,17 +71,10 @@ async function getTimetable(url: string) {
         data = await data.json();
         if (!data.error) {
             for (let index in data) {
-                if (data[index]['1'].classname == 'null') {
-                    data[index] = {
-                        1: '',
-                        2: '',
-                        3: '',
-                        4: '',
-                        5: '',
-                        6: '',
-                        7: '',
-                        8: ''
-                    };
+                for(let i=1; i<9; i++) {
+                    if(data[index][i].classname == 'null') {
+                        data[index][i] = '';
+                    }
                 }
             }
             timetable.value = data;
@@ -99,7 +98,7 @@ function search() {
     }
 }
 
-getTimetable('https://md-apps.herokuapp.com/API/Y313');
+getTimetable(`https://md-apps.herokuapp.com/mdcloud/fastTable/${userAccount.userID}/${userAccount.userPsd}`);
 </script>
 
 <style scoped>
