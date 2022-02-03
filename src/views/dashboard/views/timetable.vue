@@ -30,11 +30,12 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import Cookies from 'js-cookie';
+import { useStore } from 'vuex';
 
 const titles = reactive([
     '星期', '第一節', '第二節', '第三節', '第四節', '第五節', '第六節', '第七節', '第八節'
 ])
-
+const store = useStore();
 const classSymbol = ref('');
 const yearOptions = reactive([
     {
@@ -64,34 +65,19 @@ const userAccount = {
 }
 
 let timetable = ref({});
-async function getTimetable(url: string) {
-    try {
-        showTable.value = false;
-        let data = await fetch(url);
-        data = await data.json();
-        if (!data.error) {
-            for (let index in data) {
-                for(let i=1; i<9; i++) {
-                    if(data[index][i].classname == 'null') {
-                        data[index][i] = '';
-                    }
-                }
-            }
+function getTimetable(url: string) {
+    showTable.value = false;
+    store.dispatch('GET_TIME_TABLE', url)
+        .then(data => {
             timetable.value = data;
             showTable.value = true;
-        } else {
-            console.error(data.error);
-        }
-
-    } catch (err) {
-        console.log('fetch err');
-        console.error(err);
-    }
+        });
 }
 
 function search() {
+    if(classSymbol.value == '') return false;
     if (classSymbol.value !== '' && showTable.value == true) {
-        getTimetable(`https://md-apps.herokuapp.com/API/${classSymbol.value}/${selected.value}/5`)
+        getTimetable(`https://md-apps.herokuapp.com/API/${classSymbol.value}/${selected.value}`)
     } else {
         alert('wait a minute');
         return;
