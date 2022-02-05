@@ -32,9 +32,34 @@ import { ref, reactive } from 'vue';
 import Cookies from 'js-cookie';
 import { useStore } from 'vuex';
 
+type classDetail = {
+    classname: string;
+    teacher: string;
+}
+
+interface table{
+    1: classDetail;
+    2: classDetail;
+    3: classDetail;
+    4: classDetail;
+    5: classDetail;
+    6: classDetail;
+    7: classDetail;
+    8: classDetail;
+};
+
+interface TimeTable<T> {
+    day1: T;
+    day2: T;
+    day3: T;
+    day4: T;
+    day5: T;
+    day6: T;
+};
+
 const titles = reactive([
     '星期', '第一節', '第二節', '第三節', '第四節', '第五節', '第六節', '第七節', '第八節'
-])
+]);
 const store = useStore();
 const classSymbol = ref('');
 const yearOptions = reactive([
@@ -64,7 +89,7 @@ const userAccount = {
     userPsd: Cookies.get('userPsd')
 }
 
-let timetable = ref({});
+let timetable = ref<TimeTable<table>>();
 function getTimetable(url: string) {
     showTable.value = false;
     store.dispatch('GET_TIME_TABLE', url)
