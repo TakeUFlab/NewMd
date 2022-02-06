@@ -70,7 +70,7 @@ const userData = {
 @media screen and (max-width: 1025px) {
     .information {
         width: 100vw;
-        margin-left: 50px;
+        margin-left: 20px;
     }
 }
 </style>

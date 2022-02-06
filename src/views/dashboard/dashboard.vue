@@ -220,11 +220,19 @@ i.bx {
         background-color: #0091ff;
     }
     #active:checked ~ .options {
-        background-color: #0091ff52;
+        background-color: #0091ffd8;
         height: calc(100vh - 56px);
     }
     #active:checked ~ .options > label {
         margin: 0;
+    }
+    .information {
+        margin-left: 20px;
+        width: 100vw;
+    }
+    #active:checked ~ .information {
+        margin-left: 20px;
+        width: 100vw;
     }
 }
 </style>
